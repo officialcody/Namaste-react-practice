@@ -1,0 +1,31 @@
+{
+  "name": "namaste-react-practice",
+  "version": "1.0.0",
+  "description": "React Practice Application",
+  "scripts": {
+    "start": "rm -rf .parcel-cache && parcel index.html",
+    "build": "rm -rf .parcel-cache && parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/officialcody/Namaste-react-practice.git"
+  },
+  "author": "Sparsh Goel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/officialcody/Namaste-react-practice/issues"
+  },
+  "homepage": "https://github.com/officialcody/Namaste-react-practice#readme",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserslist": [
+    "last 10 Chrome versions"
+  ],
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  }
+}
