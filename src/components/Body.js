@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import { restaurantList } from "../app.constants.js";
+import Shimmer from "./Shimmer.js";
+import { SWIGGY_API } from "../app.constants.js";
 
 function filterData(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
@@ -9,8 +10,29 @@ function filterData(searchText, restaurants) {
   return filterData;
 }
 const Body = () => {
-  const [restaurants, setRestaurants] = useState(restaurantList);
+  const [restaurants, setRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const fetchData = async () => {
+    const data = await fetch(SWIGGY_API);
+    const jsonData = await data.json();
+    console.log(
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+    setRestaurants(
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (restaurants.length === 0) {
+    return <Shimmer />;
+  }
   return (
     <>
       <div className="search-container">
@@ -36,7 +58,7 @@ const Body = () => {
       <div className="restaurant-list">
         {restaurants.map((restaurant) => {
           return (
-            <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+            <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
           );
         })}
       </div>
