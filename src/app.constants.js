@@ -4,6 +4,8 @@ export const IMG_CDN_URL =
 export const SWIGGY_API =
   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.73390&lng=76.78890&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 
+export const SWIGGY_RESTAURANT_MENU_API =
+  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.73390&lng=76.78890&restaurantId=";
 export const restaurantList = [
   {
     type: "restaurant",
