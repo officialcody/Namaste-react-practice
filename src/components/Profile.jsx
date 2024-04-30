@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
+import useGitApi from "../utils/useGitApi";
 const Profile = () => {
-  const [profileData, setProfileData] = useState({});
-  const fetchProfileData = async () => {
-    const data = await axios.get("https://api.github.com/users/officialcody");
-    setProfileData(data?.data);
-  };
-  useEffect(() => {
-    fetchProfileData();
-  }, []);
+  const profileData = useGitApi("officialcody");
   const { name, avatar_url } = profileData;
   return (
     <div>

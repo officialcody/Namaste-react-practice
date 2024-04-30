@@ -1,4 +1,4 @@
-import { IMG_CDN_URL } from "../app.constants.js";
+import { IMG_CDN_URL } from "../utils/app.constants.js";
 const RestrauntCard = ({
   name,
   cuisines,

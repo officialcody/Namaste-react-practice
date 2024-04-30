@@ -6,6 +6,8 @@ export const SWIGGY_API =
 
 export const SWIGGY_RESTAURANT_MENU_API =
   "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.73390&lng=76.78890&restaurantId=";
+
+export const GITHUB_USER_API = "https://api.github.com/users/";
 export const restaurantList = [
   {
     type: "restaurant",

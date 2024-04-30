@@ -19,6 +19,7 @@ class About extends React.Component {
         <h1>About</h1>
         <User />
         <UserClass />
+        <Profile />
         <ProfileClass />
       </div>
     );

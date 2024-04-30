@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer.js";
-import { SWIGGY_API } from "../app.constants.js";
+import { SWIGGY_API } from "../utils/app.constants.js";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 function filterData(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
@@ -28,9 +29,14 @@ const Body = () => {
     fetchData();
   }, []);
 
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return <h1>Looks like you are offline</h1>;
+  }
   if (restaurants.length === 0) {
     return <Shimmer />;
   }
+
   return (
     <>
       <div className="search-container">
