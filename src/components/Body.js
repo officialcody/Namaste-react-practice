@@ -4,6 +4,9 @@ import Shimmer from "./Shimmer.js";
 import { SWIGGY_API } from "../utils/app.constants.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { withTopRatedLabel } from "../hoc/withTopRatedLabel.js";
+
+const RestaurantCardPromoted = withTopRatedLabel(RestaurantCard);
 
 function filterData(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
@@ -78,9 +81,14 @@ const Body = () => {
       </div>
       <div className="flex flex-wrap">
         {restaurants.map((restaurant) => {
+          console.log(restaurant.info);
           return (
             <Link to={`/restaurant/${restaurant.info.id}`}>
-              <RestaurantCard {...restaurant.info} />
+              {restaurant.info.avgRating > 4.5 ? (
+                <RestaurantCardPromoted {...restaurant.info} />
+              ) : (
+                <RestaurantCard {...restaurant.info} />
+              )}
             </Link>
           );
         })}
