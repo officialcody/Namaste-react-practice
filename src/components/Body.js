@@ -11,6 +11,14 @@ function filterData(searchText, restaurants) {
   );
   return filterData;
 }
+
+function filterTopRatedRestaurants(restaurants) {
+  const filteredData = restaurants.filter(
+    (restaurant) => restaurant.info.avgRating > 4.2
+  );
+  return filteredData;
+}
+
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -39,10 +47,10 @@ const Body = () => {
 
   return (
     <>
-      <div className="search-container">
+      <div className="m-4 p-4">
         <input
           type="text"
-          className="search-input"
+          className="border border-solid border-black rounded-l"
           placeholder="Search"
           value={searchText}
           onChange={(e) => {
@@ -50,7 +58,7 @@ const Body = () => {
           }}
         />
         <button
-          className="search-btn"
+          className="m-4 px-4 py-2 bg-green-100 rounded-xl"
           onClick={() => {
             const data = filterData(searchText, restaurants);
             setRestaurants(data);
@@ -58,8 +66,17 @@ const Body = () => {
         >
           Search
         </button>
+        <button
+          className="m-4 px-4 py-2 bg-orange-400 rounded-xl"
+          onClick={() => {
+            const data = filterTopRatedRestaurants(restaurants);
+            setRestaurants(data);
+          }}
+        >
+          Top rated restaurants
+        </button>
       </div>
-      <div className="restaurant-list">
+      <div className="flex flex-wrap">
         {restaurants.map((restaurant) => {
           return (
             <Link to={`/restaurant/${restaurant.info.id}`}>
