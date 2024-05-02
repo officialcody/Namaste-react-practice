@@ -5,6 +5,7 @@ import { SWIGGY_API } from "../utils/app.constants.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { withTopRatedLabel } from "../hoc/withTopRatedLabel.js";
+import useLocalStorage from "../utils/useLocalStorage.js";
 
 const RestaurantCardPromoted = withTopRatedLabel(RestaurantCard);
 
@@ -25,12 +26,18 @@ function filterTopRatedRestaurants(restaurants) {
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [setItem, getItem, removeItem, clear] = useLocalStorage();
 
   const fetchData = async () => {
     const data = await fetch(SWIGGY_API);
     const jsonData = await data.json();
     console.log(jsonData);
     setRestaurants(
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+    setItem(
+      "res",
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );

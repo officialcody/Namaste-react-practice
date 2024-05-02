@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 const useLocalStorage = () => {
   const setItem = (key, value) => {
     try {
