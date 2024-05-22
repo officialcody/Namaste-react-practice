@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer.js";
 import { SWIGGY_API } from "../utils/app.constants.js";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { withTopRatedLabel } from "../hoc/withTopRatedLabel.js";
 import useLocalStorage from "../utils/useLocalStorage.js";
+import UserContext from "../utils/UserContext.js";
 
 const RestaurantCardPromoted = withTopRatedLabel(RestaurantCard);
 
@@ -54,7 +55,7 @@ const Body = () => {
   if (restaurants.length === 0) {
     return <Shimmer />;
   }
-
+  const { user, setUser } = useContext(UserContext);
   return (
     <>
       <div className="m-4 p-4">
@@ -85,6 +86,14 @@ const Body = () => {
         >
           Top rated restaurants
         </button>
+        <input
+          value={user.name}
+          onChange={(event) => setUser({ ...user, name: event.target.value })}
+        ></input>
+        <input
+          value={user.email}
+          onChange={(event) => setUser({ ...user, email: event.target.value })}
+        ></input>
       </div>
       <div className="flex flex-wrap">
         {restaurants.map((restaurant) => {

@@ -3,6 +3,7 @@ import User from "./User";
 import UserClass from "./UserClass";
 import Profile from "./Profile";
 import ProfileClass from "./ProfileClass";
+import UserContext from "../utils/UserContext";
 
 class About extends React.Component {
   constructor(props) {
@@ -17,6 +18,9 @@ class About extends React.Component {
     return (
       <div>
         <h1>About</h1>
+        <UserContext.Consumer>
+          {({ user }) => <h4 className="p-10 m-10">{user.name}</h4>}
+        </UserContext.Consumer>
         <User />
         <UserClass />
         <Profile />
