@@ -1,22 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
-import { addItem } from "../utils/slices/CartSlice";
-import { useDispatch } from "react-redux";
+
 import Shimmer from "./Shimmer";
 import { IMG_CDN_URL } from "../utils/app.constants";
+import MenuAccordionContainer from "./MenuAccordionContainer";
 
 const RestaurantMenu = () => {
   const { restaurantId } = useParams();
+  const [restaurantDetails, menuCards] = useRestaurantMenu(restaurantId);
+  const [visibleAccordion, setVisibleAccordion] = useState(0);
 
-  let [restaurantDetails, menuCards] = useRestaurantMenu(restaurantId);
-
-  const dispatch = useDispatch();
-
-  const handleAddItem = () => {
-    dispatch(addItem("grapes"));
-  };
-  console.log(menuCards);
   return !restaurantDetails ? (
     <Shimmer />
   ) : (
@@ -33,29 +27,21 @@ const RestaurantMenu = () => {
         </h3>
         <h3>Star Rating - {restaurantDetails?.avgRating}</h3>
         <h3>Total Ratings - {restaurantDetails.totalRatingsString} </h3>
-        {/* <button
-          onClick={() => handleAddItem()}
-          className="p-2 m-5 bg-green-100"
-        >
-          Add Item
-        </button> */}
       </div>
       <div>
-        <h1>Menu</h1>
         <ul>
-          {menuCards.map((menuCard) => (
-            <li key={menuCard.card.card.type}>
+          {menuCards.map((menuCard, index) => (
+            <li className="" key={menuCard.card.card.type}>
               <div className="p-2 m-2 ">
-                <div className="bg-orange-200">{menuCard.card.card.title}</div>
-                <ul>
-                  {menuCard.card.card.itemCards.map((itemCard) => (
-                    <li key={itemCard.card.info.id}>
-                      <div className="bg-green-200">
-                        {itemCard.card.info.name}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                <div
+                  className="bg-orange-200"
+                  onClick={() => setVisibleAccordion(index)}
+                >
+                  {menuCard.card.card.title}
+                </div>
+                {visibleAccordion === index && (
+                  <MenuAccordionContainer menuCard={menuCard} />
+                )}
               </div>
             </li>
           ))}
