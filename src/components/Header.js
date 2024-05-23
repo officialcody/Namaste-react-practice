@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Title = () => (
   <a href="/">
@@ -17,7 +18,7 @@ const Header = () => {
   const onlineStatus = useOnlineStatus();
 
   const { user } = useContext(UserContext);
-
+  const cartItems = useSelector((store) => store.cart.items);
   return (
     <div className="flex justify-between bg-pink-200 shadow-lg px-4">
       <Title />
@@ -37,11 +38,9 @@ const Header = () => {
             <Link to="/grocery">Grocery</Link>
           </li>
           <li className="px-4">
-            <a href="/hello">Cart</a>
-          </li>
-          <li className="px-4">
             <span className="p-10 font-bold text-red-900">{user.name}</span>
           </li>
+          <li className="px-4">Cart - {cartItems.length} items</li>
           <button
             className="btn"
             onClick={() => {
