@@ -4,9 +4,12 @@ import { addItem } from "../utils/slices/CartSlice";
 
 export default MenuAccordionContainer = ({ menuCard }) => {
   const dispatch = useDispatch();
-  const handleAddItem = (itemid) => {
-    dispatch(addItem(itemid));
+
+  const handleAddItem = (item) => {
+    console.log(item);
+    dispatch(addItem(item));
   };
+
   return (
     <>
       <ul className="">
@@ -14,7 +17,7 @@ export default MenuAccordionContainer = ({ menuCard }) => {
           <li className="bg-green-200" key={itemCard.card.info.id}>
             <span className="p-2 m-2">{itemCard.card.info.name}</span>
             <button
-              onClick={() => handleAddItem(itemCard.card.info.id)}
+              onClick={() => handleAddItem(itemCard.card.info)}
               className="p-2 m-2 bg-purple-800 text-white rounded-xl"
             >
               Add

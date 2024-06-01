@@ -19,6 +19,8 @@ const Header = () => {
 
   const { user } = useContext(UserContext);
   const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
+
   return (
     <div className="flex justify-between bg-pink-200 shadow-lg px-4">
       <Title />
@@ -40,7 +42,11 @@ const Header = () => {
           <li className="px-4">
             <span className="p-10 font-bold text-red-900">{user.name}</span>
           </li>
-          <li className="px-4">Cart - {cartItems.length} items</li>
+
+          <li className="px-4">
+            <Link to="/cart">Cart</Link> - {cartItems.length} items
+          </li>
+
           <button
             className="btn"
             onClick={() => {
