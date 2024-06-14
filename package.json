@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/officialcody/Namaste-react-practice#readme",
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.6.8",
     "postcss": "^8.4.38",
