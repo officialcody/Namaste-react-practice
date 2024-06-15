@@ -12,7 +12,7 @@ const GoogleMaps = ({ latitude, longitude }) => {
     lng: Number(longitude),
   };
   return (
-    <LoadScript googleMapsApiKey="AIzaSyBXJZX3csn02Hr2mpVdx72nYMsXHKWRNfk">
+    <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <GoogleMap
         center={center}
         zoom={20}
