@@ -111,11 +111,11 @@ const RestaurantMenu = () => {
             {menuCards.map((menuCard, index) => (
               <li key={menuCard.card.card.type}>
                 <div
-                  class="relative mb-3"
+                  className="relative mb-3"
                   onClick={() => setVisibleAccordion(index)}
                 >
-                  <h6 class="mb-0">
-                    <button class="relative flex items-center w-full p-4 font-semibold text-left transition-all ease-in border-b border-solid cursor-pointer border-slate-100 text-slate-700 rounded-t-1 group text-dark-500">
+                  <h6 className="mb-0">
+                    <button className="relative flex items-center w-full p-4 font-semibold text-left transition-all ease-in border-b border-solid cursor-pointer border-slate-100 text-slate-700 rounded-t-1 group text-dark-500">
                       <span>{menuCard.card.card.title}</span>
                       {visibleAccordion === index ? (
                         <FaMinus className="absolute right-0 pt-1" />

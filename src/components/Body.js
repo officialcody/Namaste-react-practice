@@ -28,6 +28,7 @@ const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [setItem, getItem, removeItem, clear] = useLocalStorage();
+  const { user, setUser } = useContext(UserContext);
 
   const fetchData = async () => {
     const data = await fetch(SWIGGY_API);
@@ -55,7 +56,8 @@ const Body = () => {
   if (restaurants.length === 0) {
     return <Shimmer />;
   }
-  const { user, setUser } = useContext(UserContext);
+  
+
   return (
     <>
       <div className="m-4 p-4">
@@ -99,7 +101,10 @@ const Body = () => {
         {restaurants.map((restaurant) => {
           console.log(restaurant.info);
           return (
-            <Link to={`/restaurant/${restaurant.info.id}`}>
+            <Link
+              key={restaurant.info.id}
+              to={`/restaurant/${restaurant.info.id}`}
+            >
               {restaurant.info.avgRating > 4.5 ? (
                 <RestaurantCardPromoted {...restaurant.info} />
               ) : (
