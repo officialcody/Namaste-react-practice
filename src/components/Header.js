@@ -5,14 +5,14 @@ import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 const Title = () => (
-  <a href="/">
+  <Link className="w-20 p-1 m-1" to="/">
     <img
       data-testid="logo"
-      className="w-32"
+      className="object-cover object-center w-32 rounded-full"
       alt="logo"
       src="https://yt3.ggpht.com/ytc/AMLnZu_EC-ECXAxRAixWGEfMsE1rdSoetBHyxmLNdtCB=s900-c-k-c0x00ffffff-no-rj"
     />
-  </a>
+  </Link>
 );
 const Header = () => {
   const [btnName, setBtnName] = useState("login");
@@ -22,7 +22,7 @@ const Header = () => {
   const cartItems = useSelector((store) => store.cart.items);
 
   return (
-    <div className="flex justify-between bg-pink-200 shadow-lg px-4">
+    <div className="flex sticky top-0 justify-between bg-orange-200 shadow-lg px-4">
       <Title />
       <div className="flex items-center">
         <ul className="flex p-4 m-4">

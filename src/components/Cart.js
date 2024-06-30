@@ -13,7 +13,10 @@ const Cart = () => {
   };
 
   const getTotalPrice = () => {
-    return cartItems.reduce((acc, curr) => acc + curr.price, 0);
+    return cartItems.reduce(
+      (acc, curr) => acc + (curr.price || curr.defaultPrice),
+      0
+    );
   };
 
   if (cartItems.length === 0) {
@@ -33,7 +36,7 @@ const Cart = () => {
           Clear Cart
         </button>
       </div>
-      <ul className="max-w-md divide-y py-auto mx-auto divide-gray-200 dark:divide-gray-700">
+      <ul className="lg:w-[70%] divide-y py-auto mx-auto divide-gray-200 dark:divide-gray-700">
         {cartItems.map((item) => (
           <CartItem key={item.id} {...item} />
         ))}

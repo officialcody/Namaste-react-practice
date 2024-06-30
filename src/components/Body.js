@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import Shimmer from "./Shimmer.js";
 import { SWIGGY_API } from "../utils/app.constants.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -27,7 +26,7 @@ const Body = () => {
   function filterTopRatedRestaurants() {
     const resData = getItem("res");
     const filteredData = resData.filter(
-      (restaurant) => restaurant.info.avgRating > 4.2
+      (restaurant) => restaurant.info.avgRating >= 4.5
     );
     return filteredData;
   }
@@ -54,13 +53,10 @@ const Body = () => {
   if (onlineStatus === false) {
     return <h1>Looks like you are offline</h1>;
   }
-  // if (restaurants.length === 0) {
-  //   return <Shimmer />;
-  // }
 
   return (
     <>
-      <div className="m-4 p-4">
+      <div className="flex p-2 items-center justify-center bg-orange-200">
         <input
           type="text"
           className="border border-solid border-black rounded-md p-1 pl-3 w-40 selection:border-red-300"
@@ -69,7 +65,7 @@ const Body = () => {
           onChange={(e) => setSearchText(e.target.value)}
         />
         <button
-          className="m-4 px-4 py-2 bg-purple-700 text-white rounded-lg"
+          className="m-4 px-4 py-2 bg-red-900 text-white rounded-lg"
           onClick={() => {
             const data = filterRestData(searchText);
             setRestaurants(data);
@@ -78,7 +74,7 @@ const Body = () => {
           Search
         </button>
         <button
-          className="m-4 px-4 py-2 bg-red-500 text-white rounded-xl"
+          className="m-4 px-4 py-2 bg-red-900 text-white rounded-xl"
           onClick={() => {
             const data = filterTopRatedRestaurants();
             setRestaurants(data);
@@ -86,14 +82,27 @@ const Body = () => {
         >
           Top rated restaurants
         </button>
-        <input
-          value={user.name}
-          onChange={(event) => setUser({ ...user, name: event.target.value })}
-        ></input>
-        <input
-          value={user.email}
-          onChange={(event) => setUser({ ...user, email: event.target.value })}
-        ></input>
+      </div>
+      <div className="bg-orange-200">
+        <div className="flex items-center justify-center">
+          Runtime Change Field
+        </div>
+        <div className="flex m-2 p-2 items-center justify-center">
+          <input
+            className="m-2 border border-solid border-black rounded-md p-1 pl-3 w-40 selection:border-red-300"
+            placeholder="Name"
+            value={user.name}
+            onChange={(event) => setUser({ ...user, name: event.target.value })}
+          ></input>
+          <input
+            className="m-2 border border-solid border-black rounded-md p-1 pl-3 w-40 selection:border-red-300"
+            placeholder="Email"
+            value={user.email}
+            onChange={(event) =>
+              setUser({ ...user, email: event.target.value })
+            }
+          ></input>
+        </div>
       </div>
       <div className="flex flex-wrap">
         {restaurants.length > 0 ? (
@@ -103,7 +112,7 @@ const Body = () => {
                 key={restaurant.info.id}
                 to={`/restaurant/${restaurant.info.id}`}
               >
-                {restaurant.info.avgRating > 4.5 ? (
+                {restaurant.info.avgRating >= 4.5 ? (
                   <RestaurantCardPromoted {...restaurant.info} />
                 ) : (
                   <RestaurantCard {...restaurant.info} />
