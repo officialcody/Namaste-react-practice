@@ -15,8 +15,6 @@ const RestaurantMenu = () => {
   const [restaurantDetails, menuCards] = useRestaurantMenu(restaurantId);
   const [visibleAccordion, setVisibleAccordion] = useState(0);
 
-  console.log(restaurantDetails);
-
   const getClosingTime = () => {
     return formatTimeFromTimestamp(
       new Date(restaurantDetails?.availability?.nextCloseTime).getTime()

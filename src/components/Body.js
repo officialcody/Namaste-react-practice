@@ -10,30 +10,31 @@ import UserContext from "../utils/UserContext.js";
 
 const RestaurantCardPromoted = withTopRatedLabel(RestaurantCard);
 
-function filterData(searchText, restaurants) {
-  const filterData = restaurants.filter((restaurant) =>
-    restaurant.data.name.includes(searchText)
-  );
-  return filterData;
-}
-
-function filterTopRatedRestaurants(restaurants) {
-  const filteredData = restaurants.filter(
-    (restaurant) => restaurant.info.avgRating > 4.2
-  );
-  return filteredData;
-}
-
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [setItem, getItem, removeItem, clear] = useLocalStorage();
   const { user, setUser } = useContext(UserContext);
 
+  function filterRestData(searchText) {
+    const restData = getItem("res");
+    const filterData = restData.filter((restaurant) => {
+      return JSON.stringify(restaurant).includes(searchText);
+    });
+    return filterData;
+  }
+
+  function filterTopRatedRestaurants() {
+    const resData = getItem("res");
+    const filteredData = resData.filter(
+      (restaurant) => restaurant.info.avgRating > 4.2
+    );
+    return filteredData;
+  }
+
   const fetchData = async () => {
     const data = await fetch(SWIGGY_API);
     const jsonData = await data.json();
-    console.log(jsonData);
     setRestaurants(
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
@@ -53,36 +54,33 @@ const Body = () => {
   if (onlineStatus === false) {
     return <h1>Looks like you are offline</h1>;
   }
-  if (restaurants.length === 0) {
-    return <Shimmer />;
-  }
-  
+  // if (restaurants.length === 0) {
+  //   return <Shimmer />;
+  // }
 
   return (
     <>
       <div className="m-4 p-4">
         <input
           type="text"
-          className="border border-solid border-black rounded-l"
+          className="border border-solid border-black rounded-md p-1 pl-3 w-40 selection:border-red-300"
           placeholder="Search"
           value={searchText}
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
+          onChange={(e) => setSearchText(e.target.value)}
         />
         <button
-          className="m-4 px-4 py-2 bg-green-100 rounded-xl"
+          className="m-4 px-4 py-2 bg-purple-700 text-white rounded-lg"
           onClick={() => {
-            const data = filterData(searchText, restaurants);
+            const data = filterRestData(searchText);
             setRestaurants(data);
           }}
         >
           Search
         </button>
         <button
-          className="m-4 px-4 py-2 bg-orange-400 rounded-xl"
+          className="m-4 px-4 py-2 bg-red-500 text-white rounded-xl"
           onClick={() => {
-            const data = filterTopRatedRestaurants(restaurants);
+            const data = filterTopRatedRestaurants();
             setRestaurants(data);
           }}
         >
@@ -98,21 +96,24 @@ const Body = () => {
         ></input>
       </div>
       <div className="flex flex-wrap">
-        {restaurants.map((restaurant) => {
-          console.log(restaurant.info);
-          return (
-            <Link
-              key={restaurant.info.id}
-              to={`/restaurant/${restaurant.info.id}`}
-            >
-              {restaurant.info.avgRating > 4.5 ? (
-                <RestaurantCardPromoted {...restaurant.info} />
-              ) : (
-                <RestaurantCard {...restaurant.info} />
-              )}
-            </Link>
-          );
-        })}
+        {restaurants.length > 0 ? (
+          restaurants.map((restaurant) => {
+            return (
+              <Link
+                key={restaurant.info.id}
+                to={`/restaurant/${restaurant.info.id}`}
+              >
+                {restaurant.info.avgRating > 4.5 ? (
+                  <RestaurantCardPromoted {...restaurant.info} />
+                ) : (
+                  <RestaurantCard {...restaurant.info} />
+                )}
+              </Link>
+            );
+          })
+        ) : (
+          <div>No Such Restaurants</div>
+        )}
       </div>
     </>
   );
