@@ -22,7 +22,7 @@ const Header = () => {
   const cartItems = useSelector((store) => store.cart.items);
 
   return (
-    <div className="flex sticky top-0 justify-between bg-orange-200 shadow-lg px-4">
+    <div className="flex sticky top-0 justify-between bg-orange-200 shadow-lg px-4 z-10">
       <Title />
       <div className="flex items-center">
         <ul className="flex p-4 m-4">

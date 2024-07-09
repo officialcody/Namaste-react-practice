@@ -5,7 +5,8 @@
   "scripts": {
     "start": "rm -rf .parcel-cache && parcel index.html",
     "build": "rm -rf .parcel-cache && parcel build index.html",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "repository": {
     "type": "git",

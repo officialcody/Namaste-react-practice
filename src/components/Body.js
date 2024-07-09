@@ -65,6 +65,7 @@ const Body = () => {
           onChange={(e) => setSearchText(e.target.value)}
         />
         <button
+          data-testid="search-btn"
           className="m-4 px-4 py-2 bg-red-900 text-white rounded-lg"
           onClick={() => {
             const data = filterRestData(searchText);
@@ -104,7 +105,7 @@ const Body = () => {
           ></input>
         </div>
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap" data-testid="res-list">
         {restaurants.length > 0 ? (
           restaurants.map((restaurant) => {
             return (
