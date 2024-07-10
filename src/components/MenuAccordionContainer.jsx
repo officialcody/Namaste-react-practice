@@ -40,6 +40,7 @@ export default MenuAccordionContainer = ({ menuCard, visible }) => {
                   .00
                 </div>
                 <button
+                  data-testid="addBtn"
                   onClick={() => handleAddItem(itemCard.card.info)}
                   className="p-2 m-2 bg-purple-800 text-white rounded-xl"
                 >
@@ -76,6 +77,7 @@ export default MenuAccordionContainer = ({ menuCard, visible }) => {
                   .00
                 </div>
                 <button
+                  data-testid="addBtn"
                   onClick={() => handleAddItem(item.dish.info)}
                   className="p-2 m-2 bg-purple-800 text-white rounded-xl"
                 >
@@ -119,6 +121,7 @@ export default MenuAccordionContainer = ({ menuCard, visible }) => {
                           .00
                         </div>
                         <button
+                          data-testid="addBtn"
                           onClick={() => handleAddItem(categoryCard.card.info)}
                           className="p-2 m-2 bg-purple-800 text-white rounded-xl"
                         >
@@ -146,7 +149,10 @@ export default MenuAccordionContainer = ({ menuCard, visible }) => {
         }
       >
         <div className="p-4 text-sm leading-normal text-blue-gray-500/80">
-          <ul className="w-full divide-gray-200 dark:divide-gray-700">
+          <ul
+            data-testid="menu"
+            className="w-full divide-gray-200 dark:divide-gray-700"
+          >
             {renderAsPerData(menuCard?.card?.card)}
           </ul>
         </div>

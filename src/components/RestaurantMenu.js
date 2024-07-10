@@ -38,9 +38,7 @@ const RestaurantMenu = () => {
     return formattedTime;
   }
 
-  return !restaurantDetails ? (
-    <Shimmer />
-  ) : (
+  return (
     <>
       <section className="text-gray-700 body-font overflow-hidden bg-white">
         <div className="container px-5 py-8 mx-auto">
@@ -105,7 +103,7 @@ const RestaurantMenu = () => {
 
       <section className="text-gray-700 body-font overflow-hidden bg-white">
         <div className="container px-5 pb-8 mx-auto">
-          <ul className="lg:w-4/5 mx-auto">
+          <ul data-testid="rest-menu" className="lg:w-4/5 mx-auto">
             {menuCards.map((menuCard, index) => (
               <li key={menuCard.card.card.type}>
                 <div
